@@ -30,7 +30,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
-        // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+        // Show a SplashScreen for 5 seconds
+        // Close it with an fade of 0.5
+        guard let frame = self.window?.bounds else { return }
+        let splashScreen = UIView(frame: frame)
+        splashScreen.alpha = 1
+        splashScreen.backgroundColor = UIColor.blue
+        self.window?.addSubview(splashScreen)
+        
+
+        UIView.animate(withDuration: 0.5, delay: 5, animations: {
+            splashScreen.alpha = 0
+        }, completion: {(success) in
+            splashScreen.removeFromSuperview()
+        })
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
