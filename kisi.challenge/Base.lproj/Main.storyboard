@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="r9i-ak-IqD">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Kisi-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="kisi_challenge" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="top" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="b3h-WV-7yf">
+                                <rect key="frame" x="147.5" y="228.5" width="80" height="210"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VJS-Cr-aeg">
+                                        <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="80" id="Ndd-n2-hy7"/>
+                                            <constraint firstAttribute="height" constant="80" id="VZL-JI-PcA"/>
+                                        </constraints>
+                                        <state key="normal" title="Sender"/>
+                                        <connections>
+                                            <action selector="senderAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Adz-Yv-KlV"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5pW-9l-3Vz">
+                                        <rect key="frame" x="0.0" y="130" width="80" height="80"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="80" id="JfB-Rk-JOM"/>
+                                            <constraint firstAttribute="width" constant="80" id="Wf5-hk-R9i"/>
+                                        </constraints>
+                                        <state key="normal" title="Receiver"/>
+                                        <connections>
+                                            <action selector="receiverAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Kfn-jY-8Zc"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="b3h-WV-7yf" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="cv5-Za-8wn"/>
+                            <constraint firstItem="b3h-WV-7yf" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="mtc-uc-AtB"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Kisi" id="Wtq-k4-Mar"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1268" y="138.98050974512745"/>
+        </scene>
+        <!--Beacon-->
+        <scene sceneID="Hrk-lp-aR1">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ZQq-Uz-8kk" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Beacon" id="0c2-Oo-UKm"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="y6t-mY-hNs">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="Is6-Ks-eQA"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KsB-KE-W2I" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="372" y="-644.52773613193403"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="CoY-qj-80D">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="r9i-ak-IqD" customClass="TabBarController" customModule="kisi_challenge" customModuleProvider="target" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="5yP-HU-cRf">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="ZQq-Uz-8kk" kind="relationship" relationship="viewControllers" id="bng-kq-cNZ"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ccT-FE-AmR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1062" y="-645"/>
+        </scene>
+    </scenes>
+</document>
