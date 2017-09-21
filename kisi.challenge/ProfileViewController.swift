@@ -61,6 +61,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.table.translatesAutoresizingMaskIntoConstraints = false
         self.table.delegate = self
         self.table.dataSource = self
+        self.table.bounces = false
     }
     
     private func setConstraints(){

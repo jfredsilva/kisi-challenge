@@ -17,6 +17,8 @@
 		B4456B1B1F68A8200069700E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4456B1A1F68A8200069700E /* CoreLocation.framework */; };
 		B4456B1D1F68A9880069700E /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B4456B1C1F68A9880069700E /* CoreBluetooth.framework */; };
 		B45FFE931F706758002F2EFF /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45FFE921F706758002F2EFF /* UIImageViewExtension.swift */; };
+		B46701881F7469ED007710FE /* opening.gif in Resources */ = {isa = PBXBuildFile; fileRef = B46701871F7469ED007710FE /* opening.gif */; };
+		B467018B1F7471A1007710FE /* iOSDevCenters+GIF.swift in Sources */ = {isa = PBXBuildFile; fileRef = B467018A1F7471A1007710FE /* iOSDevCenters+GIF.swift */; };
 		B49230601F71AB1100BE09C6 /* BluetoothBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B492305F1F71AB1100BE09C6 /* BluetoothBaseViewController.swift */; };
 		B4D52AA61F7081A70066C3BD /* CustomDefaultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D52AA51F7081A70066C3BD /* CustomDefaultTableViewCell.swift */; };
 		B4D52AA81F7088560066C3BD /* SenderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D52AA71F7088560066C3BD /* SenderViewController.swift */; };
@@ -38,6 +40,8 @@
 		B4456B1A1F68A8200069700E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		B4456B1C1F68A9880069700E /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		B45FFE921F706758002F2EFF /* UIImageViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
+		B46701871F7469ED007710FE /* opening.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = opening.gif; sourceTree = "<group>"; };
+		B467018A1F7471A1007710FE /* iOSDevCenters+GIF.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "iOSDevCenters+GIF.swift"; sourceTree = "<group>"; };
 		B492305F1F71AB1100BE09C6 /* BluetoothBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothBaseViewController.swift; sourceTree = "<group>"; };
 		B4D52AA51F7081A70066C3BD /* CustomDefaultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDefaultTableViewCell.swift; sourceTree = "<group>"; };
 		B4D52AA71F7088560066C3BD /* SenderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SenderViewController.swift; sourceTree = "<group>"; };
@@ -79,6 +83,8 @@
 		B4456B061F689EFB0069700E /* kisi.challenge */ = {
 			isa = PBXGroup;
 			children = (
+				B46701891F74717E007710FE /* Libraries */,
+				B46701861F7469C6007710FE /* Resources */,
 				B45FFE911F706727002F2EFF /* Extensions */,
 				B45FFE901F70671E002F2EFF /* Sevices */,
 				B4456B071F689EFB0069700E /* AppDelegate.swift */,
@@ -121,6 +127,22 @@
 				B45FFE921F706758002F2EFF /* UIImageViewExtension.swift */,
 			);
 			name = Extensions;
+			sourceTree = "<group>";
+		};
+		B46701861F7469C6007710FE /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B46701871F7469ED007710FE /* opening.gif */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		B46701891F74717E007710FE /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				B467018A1F7471A1007710FE /* iOSDevCenters+GIF.swift */,
+			);
+			name = Libraries;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -186,6 +208,7 @@
 				B4456B121F689EFC0069700E /* LaunchScreen.storyboard in Resources */,
 				B4456B0F1F689EFC0069700E /* Assets.xcassets in Resources */,
 				B4456B0D1F689EFC0069700E /* Main.storyboard in Resources */,
+				B46701881F7469ED007710FE /* opening.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -197,6 +220,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B4456B0A1F689EFB0069700E /* ViewController.swift in Sources */,
+				B467018B1F7471A1007710FE /* iOSDevCenters+GIF.swift in Sources */,
 				B4D52AAA1F7088610066C3BD /* ReceiverViewController.swift in Sources */,
 				B438CB721F700E7200118EAB /* TabBarController.swift in Sources */,
 				B45FFE931F706758002F2EFF /* UIImageViewExtension.swift in Sources */,

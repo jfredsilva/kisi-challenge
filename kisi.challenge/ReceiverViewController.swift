@@ -10,7 +10,7 @@ import UIKit
 import CoreLocation
 import CoreBluetooth
 
-class ReceiverViewController: BluetoothBaseViewController, CLLocationManagerDelegate, CBCentralManagerDelegate {
+class ReceiverViewController: BluetoothBaseViewController, CLLocationManagerDelegate, CBCentralManagerDelegate, CBPeripheralDelegate {
 
     fileprivate var locationManager = CLLocationManager()
     fileprivate var lastUnlockedDoorTimeStamp : Date?
@@ -18,13 +18,14 @@ class ReceiverViewController: BluetoothBaseViewController, CLLocationManagerDele
     
     fileprivate var peripheral:CBPeripheral?
     
+    fileprivate var imageIndicator = UIImageView(image: UIImage(named: "closed"))
     fileprivate let responseMessage = "Door opened!"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.title = "Receiver"
-        
+
         guard let uuidValue = UUID(uuidString: Constants.UUID) else {return}
         
         beaconRegion = CLBeaconRegion.init(proximityUUID: uuidValue, identifier: Constants.BEACON_ID)
@@ -32,7 +33,21 @@ class ReceiverViewController: BluetoothBaseViewController, CLLocationManagerDele
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
     }
-
+    
+    override func setUI(){
+        super.setUI()
+    
+        imageIndicator = UIImageView(image: UIImage(named: "closed"))
+        
+        self.view.addSubview(imageIndicator)
+        imageIndicator.translatesAutoresizingMaskIntoConstraints = false
+        
+        imageIndicator.heightAnchor.constraint(equalToConstant: 120).isActive = true
+        imageIndicator.widthAnchor.constraint(equalToConstant: 160).isActive = true
+        imageIndicator.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        imageIndicator.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
+    }
+    
     private func isDoorUnlockedMoreThan4Seconds() -> Bool{
         guard let lastData = self.lastUnlockedDoorTimeStamp else { return true }
         let interval = Date().timeIntervalSince(lastData)
@@ -59,6 +74,11 @@ class ReceiverViewController: BluetoothBaseViewController, CLLocationManagerDele
                         if success {
                             print("Door Unlocked")
                             self.lastUnlockedDoorTimeStamp = Date()
+                            
+                            DispatchQueue.main.async {
+                                self.startOpenAnimation()
+                            }
+                            
                             self.locationManager.stopRangingBeacons(in: region)
                             
                             self.connectToDevice()
@@ -70,8 +90,30 @@ class ReceiverViewController: BluetoothBaseViewController, CLLocationManagerDele
         }
     }
     
-    func connectToDevice(){
+    private func startOpenAnimation(){
+        imageIndicator.image = UIImage.gifImageWithName(name: "opening")
+    }
+    
+    private func connectToDevice(){
         centralManager = CBCentralManager(delegate: self, queue: nil)
+    }
+    
+    private func sendResponse(){
+        guard let services = self.peripheral?.services else { print("No services");return }
+        
+        for service in services{
+            if service.uuid == CBUUID(string: Constants.UUID_SERVICE){
+                guard let characteristics = service.characteristics else { print("No characteristics"); return }
+                
+                for characteristic in characteristics{
+                    if characteristic.uuid == CBUUID(string: Constants.UUID_SERVICE_RESPONSE){
+                        guard let data = self.responseMessage.data(using: .utf8) else { print("No data"); return }
+                        
+                        self.peripheral?.writeValue(data, for: characteristic, type: CBCharacteristicWriteType.withoutResponse)
+                    }
+                }
+            }
+        }
     }
     
     //MARK: CBPeripheralManagerDelegate
@@ -134,5 +176,32 @@ class ReceiverViewController: BluetoothBaseViewController, CLLocationManagerDele
     
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         print("Connection to peripheral successful")
+        peripheral.delegate = self
+        
+        peripheral.discoverServices([CBUUID.init(string: Constants.UUID_SERVICE)])
+    }
+    
+    func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
+        guard let services = peripheral.services else { print("No services"); return }
+        
+        for service in services{
+            if service.uuid == CBUUID(string: Constants.UUID_SERVICE){
+                
+                peripheral.discoverCharacteristics([CBUUID(string: Constants.UUID_SERVICE_RESPONSE)], for: service)
+                
+            }
+        }
+    }
+    
+    func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
+        guard let characteristics = service.characteristics else { print("No characteristics"); return }
+        
+        for characteristic in characteristics{
+            if characteristic.uuid == CBUUID(string: Constants.UUID_SERVICE_RESPONSE){
+                guard let data = self.responseMessage.data(using: .utf8) else { print("No data"); return }
+                
+                self.peripheral?.writeValue(data, for: characteristic, type: CBCharacteristicWriteType.withoutResponse)
+            }
+        }
     }
 }

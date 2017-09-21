@@ -21,10 +21,15 @@ class BluetoothBaseViewController: UIViewController, CBPeripheralManagerDelegate
         super.viewDidLoad()
         
         self.view.backgroundColor = UIColor.white
+        setUI()
         
         peripheralManager.delegate = self
     }
 
+    func setUI(){
+        self.navigationController?.navigationBar.isTranslucent = false
+    }
+    
     //MARK: CBPeripheralManagerDelegate
     func peripheralManagerDidUpdateState(_ peripheral: CBPeripheralManager) {
         switch peripheral.state{

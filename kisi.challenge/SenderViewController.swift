@@ -18,6 +18,7 @@ class SenderViewController: BluetoothBaseViewController{
     fileprivate var timer: Timer?
     
     fileprivate let infoLabel = UILabel()
+    fileprivate let responseLabel = UILabel()
     fileprivate let bleSwitchButton = UIButton()
     fileprivate var beaconIsActive = true
     
@@ -29,17 +30,18 @@ class SenderViewController: BluetoothBaseViewController{
         bleSwitchButton.addTarget(self, action: #selector(bleSwitchTapped), for: .touchUpInside)
         
         changeAdvertisingInfo(labelText: "Advertising as Beacon", buttonText: "Switch to BLE")
-        setUI()
         
         setData(withMinor: self.minor)
     }
 
-    private func setUI(){
-        self.navigationController?.navigationBar.isTranslucent = false
+    override func setUI(){
+        super.setUI()
         
         bleSwitchButton.backgroundColor = UIColor.gray
         bleSwitchButton.titleLabel?.textAlignment = .center
         bleSwitchButton.titleLabel?.textColor = UIColor.white
+        
+        responseLabel.textAlignment = .center
         
         infoLabel.font = infoLabel.font.withSize(13)
         
@@ -49,6 +51,9 @@ class SenderViewController: BluetoothBaseViewController{
         self.view.addSubview(infoLabel)
         infoLabel.translatesAutoresizingMaskIntoConstraints = false
         
+        self.view.addSubview(responseLabel)
+        responseLabel.translatesAutoresizingMaskIntoConstraints = false
+        
         infoLabel.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 10).isActive = true
         infoLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 10).isActive = true
         
@@ -56,6 +61,10 @@ class SenderViewController: BluetoothBaseViewController{
         bleSwitchButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -60).isActive = true
         bleSwitchButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 10).isActive = true
         bleSwitchButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -10).isActive = true
+        
+        responseLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 10).isActive = true
+        responseLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -10).isActive = true
+        responseLabel.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
     }
     
     func restartBeacon(){
@@ -105,6 +114,11 @@ class SenderViewController: BluetoothBaseViewController{
     
     private func startAdvertisingBle(){
         self.stopTimer()
+        let service = CBMutableService(type: CBUUID(string: Constants.UUID_SERVICE), primary: true)
+        let characteristic = CBMutableCharacteristic(type: CBUUID(string: Constants.UUID_SERVICE_RESPONSE), properties: CBCharacteristicProperties.writeWithoutResponse, value: nil, permissions: CBAttributePermissions.writeable)
+        service.characteristics = [characteristic]
+        
+        peripheralManager.add(service)
         
         let data = [CBAdvertisementDataServiceUUIDsKey: [CBUUID(string: Constants.UUID_SERVICE)]]
         peripheralManager.startAdvertising(data)
@@ -141,6 +155,17 @@ class SenderViewController: BluetoothBaseViewController{
             }
             
         default: break
+        }
+    }
+    
+    func peripheralManager(_ peripheral: CBPeripheralManager, didReceiveWrite requests: [CBATTRequest]) {
+        for request in requests{
+            if request.characteristic.uuid == CBUUID(string: Constants.UUID_SERVICE_RESPONSE){
+                guard let data = request.value else { return }
+                guard let response = String(data: data, encoding: .utf8) else { return }
+                
+                responseLabel.text = response
+            }
         }
     }
 }
