@@ -1,12 +1,10 @@
 # kisi-challenge
 
-Hello Kissi
+Hello Kissi,
 
-I didn't added any library to the project. I only worked with the native API.
-Because I don't have any library there isn't any pod or carthage to run.
+Because I didn't added any library with pod or carthage, you just need to open the project and run on a device.
+The project just need a valid Bundle Identifier and a Team from your developer account.
 
-Just open the project and run on a device.
-
-I didn't make two different apps,
+A video demo can be found [here](https://www.youtube.com/watch?v=9RG-mJVSLwU)
 
 Build on Xcode 8.3.3
